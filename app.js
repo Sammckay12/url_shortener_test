@@ -1,7 +1,14 @@
 var express = require('express');
 var app = express();
-
 var path = require('path');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var config = require('./config');
+var base58 = require('./base58.js');
+
+var Url = require('./models/url');
+
+mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -10,12 +17,34 @@ app.get('/', function(req, res){
 });
 
 app.post('/api/shorten', function(req, res){
+  var longUrl = req.body.url;
+  var shortUrl = '';
 
+  Url.findOne({long_url: longUrl}, function (err, doc){
+  if (doc){
+    shortUrl = config.webhost + base58.encode(doc._id);
+    res.send({'shortUrl': shortUrl});
+  } else {
+    var newUrl = Url({
+       long_url: longUrl
+     });
+     newUrl.save(function(err) {
+     if (err){
+       console.log(err);
+     }
+     shortUrl = config.webhost + base58.encode(newUrl._id);
+     res.send({'shortUrl': shortUrl});
+      });
+    }
+  });
 });
 
 app.get('/:encoded_id', function(req, res){
 
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var server = app.listen(3000, function(){
   console.log('Server listening on port 3000');
