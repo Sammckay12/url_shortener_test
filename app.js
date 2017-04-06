@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');
 var base58 = require('./base58.js');
-var cors = require('cors');
+var cors = require('cors'); app.use(cors());
 require('dotenv').config()
 
 var Url = require('./models/url');
