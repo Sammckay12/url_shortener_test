@@ -7,7 +7,6 @@ var config = require('./config');
 var base58 = require('./base58.js');
 var cors = require('cors');
 
-// grab the url model
 var Url = require('./models/url');
 
 mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
@@ -33,7 +32,6 @@ app.get('/', function(req, res){
   console.log('res: ', res)
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ url: data.shortUrl }));
-  // res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
 app.post('/api/shorten', function(req, res){
@@ -69,7 +67,6 @@ app.get('/:encoded_id', function(req, res){
 
   var id = base58.decode(base58Id);
 
-  // check if url already exists in database
   Url.findOne({_id: id}, function (err, doc){
     if (doc) {
       Url.updateOne({"_id" : doc.id}, {$set: {"visits" : 2 }})
