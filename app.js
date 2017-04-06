@@ -11,7 +11,7 @@ require('dotenv').config()
 var Url = require('./models/url');
 
 const mongoUrl= process.env.MONGO_URL
-mongoose.connect(mongoUrl);
+mongoose.connect('mongodb://sammckay12:arsenal12@ds149040.mlab.com:49040/url_shortener_test');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
