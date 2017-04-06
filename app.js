@@ -16,23 +16,7 @@ mongoose.connect(mongoUrl);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var whitelist = [
-    'http://localhost:3000',
-];
-var corsOptions = {
-    origin: function(origin, callback){
-        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-        callback(null, originIsWhitelisted);
-    },
-    credentials: true
-};
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
