@@ -27,6 +27,10 @@ app.get('/', function(req, res){
   res.send(JSON.stringify({ url: data.shortUrl }));
 });
 
+app.get('/favicon.ico', function(req, res) {
+    res.sendStatus(204);
+});
+
 app.post('/api/shorten', function(req, res){
   var longUrl = req.body.url;
   var shortUrl = '';
