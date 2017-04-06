@@ -6,10 +6,12 @@ var mongoose = require('mongoose');
 var config = require('./config');
 var base58 = require('./base58.js');
 var cors = require('cors');
+require('dotenv').config()
 
 var Url = require('./models/url');
 
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+const mongoUrl= process.env.MONGO_URL
+mongoose.connect(mongoUrl);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -69,8 +71,6 @@ app.get('/:encoded_id', function(req, res){
 
   Url.findOne({_id: id}, function (err, doc){
     if (doc) {
-      Url.updateOne({"_id" : doc.id}, {$set: {"visits" : 2 }})
-      console.log(doc.visits)
       res.redirect(doc.long_url);
     } else {
       res.redirect(config.webhost);

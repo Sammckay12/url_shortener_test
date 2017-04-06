@@ -10,8 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cors": "*",
+    "dotenv": "^4.0.0",
     "express": "^4.15.2",
-    "mongoose": "^4.9.3",
-    "cors": "*"
+    "mongoose": "4.1.9"
   }
 }
