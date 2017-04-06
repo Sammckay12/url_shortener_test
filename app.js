@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');
 var base58 = require('./base58.js');
-var cors = require('cors'); app.use(cors());
+var cors = require('cors');
 require('dotenv').config()
 
 var Url = require('./models/url');
@@ -16,15 +16,10 @@ mongoose.connect(mongoUrl);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors());
 
 app.get('/', function(req, res){
   console.log('res: ', res)

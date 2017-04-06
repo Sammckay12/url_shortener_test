@@ -1,9 +1,9 @@
 var config = {};
 
 config.db = {};
-config.webhost = 'https://node-server-spike.herokuapp.com/';
+config.webhost = 'http://localhost:8081/';
 
-config.db.host = 'mLab';
-config.db.name = 'url_shortener_test';
+config.db.host = 'localhost';
+config.db.name = 'url_shortener';
 
 module.exports = config;
