@@ -16,12 +16,7 @@ mongoose.connect(mongoUrl);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var corsOptions = {
-    origin: true
-    },
-    credentials: true
-};
-app.use(cors(corsOptions));
+app.use(cors({credentials: true, origin: true}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
