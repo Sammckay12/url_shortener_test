@@ -15,16 +15,14 @@ mongoose.connect('mongodb://sammckay12:arsenal12@ds149040.mlab.com:49040/url_sho
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
 
 app.get('/', function(req, res){
-  console.log('res: ', res)
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ url: data.shortUrl }));
+  res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
 app.get('/favicon.ico', function(req, res) {
@@ -32,7 +30,6 @@ app.get('/favicon.ico', function(req, res) {
 });
 
 app.post('/api/shorten', function(req, res){
-  console.log('the body: ',req.body)
   var longUrl = req.body.url;
   var shortUrl = '';
 
@@ -75,4 +72,4 @@ app.get('/:encoded_id', function(req, res){
 
 });
 
-var server = app.listen(process.env.PORT || 8081);
+var server = app.listen(process.env.PORT || 3000);
