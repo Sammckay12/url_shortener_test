@@ -1,4 +1,5 @@
 var config = {};
+const ENV = 'DEV'
 
 config.db = {};
 config.webhost = ENV === 'DEV' ? 'http://localhost:3000/' : 'https://node-spikely.herokuapp.com'

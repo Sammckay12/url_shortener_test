@@ -32,6 +32,7 @@ app.get('/favicon.ico', function(req, res) {
 });
 
 app.post('/api/shorten', function(req, res){
+  console.log('the body: ',req.body)
   var longUrl = req.body.url;
   var shortUrl = '';
 
